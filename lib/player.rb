@@ -1,10 +1,9 @@
-require_relative "game.rb"
-
 class Player
 	attr_accessor :board, :move
-	def initialize(board)
-		@board = board
-		@move = []
+	def initialize(game)
+		@game = game
+		@board = game.board
+		@move = [-1,-1]
 	end
 
 	def make_move
@@ -23,9 +22,3 @@ class Player
 	end
 
 end
-
-game = Game.new
-player = Player.new(game.board)
-
-player.make_move
-print player.move

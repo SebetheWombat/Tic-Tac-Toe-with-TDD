@@ -7,7 +7,7 @@ require_relative "../lib/game.rb"
 RSpec.describe Player do
 	before(:each) do
 		game = Game.new
-		@player = Player.new(game.board)
+		@player = Player.new(game)
 	end
 	describe "#initialize" do
 		it "should initiate the board the player is playing on" do
