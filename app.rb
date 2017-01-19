@@ -17,6 +17,10 @@ while game.any_available_moves?
 	puts "Your move: "
 	until human.is_move_valid?
 		human.make_move
+		puts ""
+		if !human.is_move_valid?
+			puts "Sorry what was that?"
+		end
 	end
 	game.update_board("O",human.move)
 	computer.find_best_move
@@ -31,5 +35,8 @@ while game.any_available_moves?
 	end
 end
 
+if game.test_winning_moves == 0
+	puts "Looks like a tie"
+end
 game.draw_board
 puts "Game Over!"

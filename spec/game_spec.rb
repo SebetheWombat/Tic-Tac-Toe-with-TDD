@@ -97,11 +97,11 @@ RSpec.describe Game do
 	end
 	describe "#draw_board" do
 		it "draws and empty board at the start of the game" do
-			expect { @game.draw_board }.to output("   |   |  \n---+---+---\n   |   |  \n---+---+---\n   |   |  \n\n").to_stdout
+			expect { @game.draw_board }.to output("3 |    |   |  \n  | ---+---+---\n2 |    |   |  \n  | ---+---+---\n1 |    |   |  \n  |____________\n     a | b | c\n\n").to_stdout
 		end
 		it "draws 'X' and 'O' on board in appropriate spots during game" do
 			@game.board = [["O","",""],["","X",""],["","O","X"]]
-			expect { @game.draw_board }.to output(" O |   |  \n---+---+---\n   | X |  \n---+---+---\n   | O | X\n\n").to_stdout
+			expect { @game.draw_board }.to output("3 |  O |   |  \n  | ---+---+---\n2 |    | X |  \n  | ---+---+---\n1 |    | O | X\n  |____________\n     a | b | c\n\n").to_stdout
 	
 		end
 	end

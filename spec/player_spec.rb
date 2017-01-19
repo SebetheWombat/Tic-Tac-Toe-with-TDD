@@ -45,6 +45,15 @@ RSpec.describe Player do
 			@player.make_move
 			expect(@player.move).to eq([2,2])
 		end
+		it "should change move to [-1,-1] if user inputs too many or too few possible moves" do
+			allow(@player).to receive(:gets).and_return("a1234")
+			@player.make_move
+			expect(@player.move).to eq([-1,-1])
+
+			allow(@player).to receive(:gets).and_return("a")
+			@player.make_move
+			expect(@player.move).to eq([-1,-1])
+		end
 		it "should ignore spaces in user input" do
 			allow(@player).to receive(:gets).and_return("b 2")
 			@player.make_move

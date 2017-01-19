@@ -1,8 +1,6 @@
 class Game
 	attr_accessor :board
 	def initialize
-		@computer = "X"
-		@human = "O"
 		@board = [["","",""],["","",""],["","",""]]
 	end
 
@@ -56,22 +54,26 @@ class Game
 	end
 
 	def draw_board
-		@board.each_with_index do |r,i|
-			r.each_with_index do |c,j|
-				if c == ""
+		3.times do |i|
+			row = 3 - i
+			print row.to_s + " | "
+			3.times do |j|
+				if @board[i][j] == ""
 					print "  "
 				else
-					print " " + c
+					print " " + @board[i][j]
 				end
 				if j < 2
 					print " |"
 				end 				
 			end
 			if i < 2
-				puts "\n---+---+---"
+				puts "\n  | ---+---+---"
 			end
 		end
-		puts "\n\n"
+		puts "\n  |____________"
+		puts "     a | b | c"
+		puts ""
 	end
 	
 	

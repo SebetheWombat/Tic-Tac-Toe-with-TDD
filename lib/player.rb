@@ -7,17 +7,14 @@ class Player
 	end
 
 	def make_move
-		
 		input = gets.chomp.gsub(" ", "")
 		input = input.split("")
-		if input[1] == "3"
-			input[1] = "1"
-		elsif input[1] == "1"
-			input[1] = "3"
+		if input.length != 2
+			@move = [-1,-1]
+		else
+			@move[0] = 3 - input[1].to_i
+			@move[1] = (input[0].ord - 97)
 		end
-		@move[0] = (input[1].to_i - 1)
-		@move[1] = (input[0].ord - 97)
-		
 	end
 
 	def is_move_valid?
@@ -31,3 +28,10 @@ class Player
 	end
 
 end
+
+
+
+
+
+
+
