@@ -1,5 +1,3 @@
-#TODO: test user input
-
 require "stringio"
 require_relative "../lib/player.rb"
 require_relative "../lib/game.rb"
@@ -38,8 +36,23 @@ RSpec.describe Player do
 	end
 
 	describe "make_move" do
-		it "should take in user input and update the move variable" do
+		it "should take in user input and update the move variable accordingly" do
+			allow(@player).to receive(:gets).and_return("a3")
+			@player.make_move
+			expect(@player.move).to eq([0,0])
 
+			allow(@player).to receive(:gets).and_return("c1")
+			@player.make_move
+			expect(@player.move).to eq([2,2])
+		end
+		it "should ignore spaces in user input" do
+			allow(@player).to receive(:gets).and_return("b 2")
+			@player.make_move
+			expect(@player.move).to eq([1,1])
+
+			allow(@player).to receive(:gets).and_return("c        3")
+			@player.make_move
+			expect(@player.move).to eq([0,2])
 		end
 
 	end

@@ -18,8 +18,8 @@ class Game
 	end
 
 	def update_board(player,move)
-		x = move[0].to_i
-		y = move[1].to_i
+		x = move[0]
+		y = move[1]
 		@board[x][y] = player
 	end
 

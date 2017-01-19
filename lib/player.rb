@@ -7,13 +7,22 @@ class Player
 	end
 
 	def make_move
-		players_move = gets.chomp
-		@move = players_move.split(",")
+		
+		input = gets.chomp.gsub(" ", "")
+		input = input.split("")
+		if input[1] == "3"
+			input[1] = "1"
+		elsif input[1] == "1"
+			input[1] = "3"
+		end
+		@move[0] = (input[1].to_i - 1)
+		@move[1] = (input[0].ord - 97)
+		
 	end
 
 	def is_move_valid?
-		x = @move[0].to_i
-		y = @move[1].to_i
+		x = @move[0]
+		y = @move[1]
 		if x >= 0 && x <= 2 && y >= 0 && y <= 2 && @board[x][y] == ""
 			true
 		else
