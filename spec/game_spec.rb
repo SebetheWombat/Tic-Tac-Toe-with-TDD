@@ -95,4 +95,16 @@ RSpec.describe Game do
 			expect(@game.test_winning_moves).to eq(0)
 		end
 	end
+	describe "#draw_board" do
+		it "draws and empty board at the start of the game" do
+			expect { @game.draw_board }.to output("   |   |  \n---+---+---\n   |   |  \n---+---+---\n   |   |  \n\n").to_stdout
+		end
+		it "draws 'X' and 'O' on board in appropriate spots during game" do
+			@game.board = [["O","",""],["","X",""],["","O","X"]]
+			expect { @game.draw_board }.to output(" O |   |  \n---+---+---\n   | X |  \n---+---+---\n   | O | X\n\n").to_stdout
+	
+		end
+	end
+
+
 end

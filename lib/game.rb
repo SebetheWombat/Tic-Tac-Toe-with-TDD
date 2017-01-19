@@ -58,13 +58,17 @@ class Game
 	def draw_board
 		@board.each_with_index do |r,i|
 			r.each_with_index do |c,j|
-				print " " + c
+				if c == ""
+					print "  "
+				else
+					print " " + c
+				end
 				if j < 2
 					print " |"
 				end 				
 			end
 			if i < 2
-				puts "\n----------"
+				puts "\n---+---+---"
 			end
 		end
 		puts "\n\n"
