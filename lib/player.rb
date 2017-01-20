@@ -13,7 +13,7 @@ class Player
 			@move = [-1,-1]
 		else
 			@move[0] = 3 - input[1].to_i
-			@move[1] = (input[0].ord - 97)
+			@move[1] = (input[0].downcase.ord - 97)
 		end
 	end
 

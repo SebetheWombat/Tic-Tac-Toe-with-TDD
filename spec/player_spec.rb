@@ -45,6 +45,11 @@ RSpec.describe Player do
 			@player.make_move
 			expect(@player.move).to eq([2,2])
 		end
+		it "is case insensitive" do
+			allow(@player).to receive(:gets).and_return("B2")
+			@player.make_move
+			expect(@player.move).to eq([1,1])
+		end
 		it "should change move to [-1,-1] if user inputs too many or too few possible moves" do
 			allow(@player).to receive(:gets).and_return("a1234")
 			@player.make_move
