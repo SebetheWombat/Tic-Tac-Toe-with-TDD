@@ -13,27 +13,24 @@ RSpec.describe Game do
 	end
 
 	describe "#any_available_moves?" do
-		it "should return a boolean value" do
-			expect([true,false]).to include(@game.any_available_moves?)
-		end
 		it "should return true if there are any open spaces on the board" do
-			expect(@game.any_available_moves?).to be_truthy
+			expect(@game.any_available_moves?).to eq(true)
 
 			@game.board = [ ["X","O","X"],
 							["O","X","O"],
 							["","O","X"]]
-			expect(@game.any_available_moves?).to be_truthy
+			expect(@game.any_available_moves?).to eq(true)
 
 			@game.board = [ ["X","",""],
 							["O","","O"],
 							["","O","X"]]
-			expect(@game.any_available_moves?).to be_truthy
+			expect(@game.any_available_moves?).to eq(true)
 		end
 		it "should return false if all spaces are occupied" do
 			@game.board = [ ["X","O","X"],
 							["O","X","O"],
 							["X","O","X"]]
-			expect(@game.any_available_moves?).to be_falsey
+			expect(@game.any_available_moves?).to eq(false)
 		end
 	end
 
@@ -66,79 +63,90 @@ RSpec.describe Game do
 	end
 
 	describe "#test_winning_moves" do
-		it "should return 10 if computer completed a row, column or diagonal" do
-			@game.board = [["X","X","X"],
-							["","",""],
-							["","",""]]
-			expect(@game.test_winning_moves).to eq(10)
-
-			 @game.board = [["X","O","O"],
-			 				["X","X","X"],
-			 				["","O",""]]
-			 expect(@game.test_winning_moves).to eq(10)
-
-			@game.board = [ ["","X",""],
-							["","X",""],
-							["","X",""]]
-			expect(@game.test_winning_moves).to eq(10)
-
-			@game.board = [ ["X","",""],
-							["","X",""],
-							["","","X"]]
-			expect(@game.test_winning_moves).to eq(10)
-
-			@game.board = [ ["","","X"],
-							["","X",""],
-							["X","",""]]
-			expect(@game.test_winning_moves).to eq(10)			
-		end
-		it "should return -10 if human player completed a row, column or diagonal" do
+		it "should return 10 if computer(O) completed a row or column" do
 			@game.board = [ ["O","O","O"],
 							["X","","X"],
 							["","O","X"]]
-			expect(@game.test_winning_moves).to eq(-10)
-
-			@game.board = [ ["","","O"],
-							["","O",""],
-							["O","",""]]
-			expect(@game.test_winning_moves).to eq(-10)
+			expect(@game.test_winning_moves("X","O")).to eq(10)
 
 			@game.board = [ ["","X","O"],
 							["","","O"],
 							["","X","O"]]
-			expect(@game.test_winning_moves).to eq(-10)
+			expect(@game.test_winning_moves("X","O")).to eq(10)
+		end
+		it "should return 10 for diagonal computer wins" do
+			@game.board = [ ["","","O"],
+							["","O",""],
+							["O","",""]]
+			expect(@game.test_winning_moves("X","O")).to eq(10)
 
 			@game.board = [ ["O","",""],
 							["","O",""],
 							["","","O"]]
-			expect(@game.test_winning_moves).to eq(-10)
+			expect(@game.test_winning_moves("X","O")).to eq(10)
+		end
+		it "should return -10 if human(X) player completed a row or column" do
+			@game.board = [["X","X","X"],
+							["","",""],
+							["","",""]]
+			expect(@game.test_winning_moves("X","O")).to eq(-10)
+
+			 @game.board = [["X","O","O"],
+			 				["X","X","X"],
+			 				["","O",""]]
+			 expect(@game.test_winning_moves("X","O")).to eq(-10)
+
+			@game.board = [ ["","X",""],
+							["","X",""],
+							["","X",""]]
+			expect(@game.test_winning_moves("X","O")).to eq(-10)
+		end
+		it "should return -10 for diagonal human wins" do
+			@game.board = [ ["X","",""],
+							["","X",""],
+							["","","X"]]
+			expect(@game.test_winning_moves("X","O")).to eq(-10)
+
+			@game.board = [ ["","","X"],
+							["","X",""],
+							["X","",""]]
+			expect(@game.test_winning_moves("X","O")).to eq(-10)
 		end
 		it "should return 0 if there are no completed rows, columns, or diagonals" do
 			@game.board = [ ["","","O"],
 							["","","X"],
 							["O","",""]]
-			expect(@game.test_winning_moves).to eq(0)
+			expect(@game.test_winning_moves("X","O")).to eq(0)
 		end
 		it "should return 0 if completed row, column, or diagonal is occupied by both players" do
 			@game.board = [ ["O","X","O"],
 							["X","","X"],
 							["","O","X"]]
-			expect(@game.test_winning_moves).to eq(0)
+			expect(@game.test_winning_moves("X","O")).to eq(0)
 
 			@game.board = [ ["","","O"],
 							["","X",""],
 							["O","",""]]
-			expect(@game.test_winning_moves).to eq(0)
+			expect(@game.test_winning_moves("X","O")).to eq(0)
 
 			@game.board = [ ["","X","O"],
 							["","","X"],
 							["","X","O"]]
-			expect(@game.test_winning_moves).to eq(0)
+			expect(@game.test_winning_moves("X","O")).to eq(0)
 
 			@game.board = [ ["O","",""],
 							["","X",""],
 							["","","X"]]
-			expect(@game.test_winning_moves).to eq(0)
+			expect(@game.test_winning_moves("X","O")).to eq(0)
+		end
+		it "should return correct numbers for winning moves on 4x4 board" do
+			g = Game.new(4)
+			g.board = [ ["X","","","O"],
+						["","X","O",""],
+						["","O","",""],
+						["O","","",""]]
+			expect(g.test_winning_moves("X","O")).to eq(10)
+
 		end
 	end
 	describe "#draw_board" do

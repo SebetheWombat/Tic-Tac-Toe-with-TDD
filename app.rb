@@ -2,9 +2,11 @@ require_relative "lib/game.rb"
 require_relative "lib/player.rb"
 require_relative "lib/comp_player.rb"
 
-game = Game.new
-human = Player.new(game)
-computer = CompPlayer.new(game)
+x_marker = "X"
+o_marker = "O"
+game = Game.new()
+human = Player.new(game,x_marker,o_marker)
+computer = CompPlayer.new(game,o_marker,x_marker)
 
 puts "\n\nHello human! I challenge you to a game of tic tac toe!"
 puts "What's that? You never heard of tic tac toe? \nWell it's okay because I am a computer so I know many things."
@@ -22,21 +24,23 @@ while game.any_available_moves?
 			puts "Sorry what was that?"
 		end
 	end
-	game.update_board("O",human.move)
-	computer.find_best_move
-	game.update_board("X",computer.move)
-	points = game.test_winning_moves
+	game.update_board(x_marker,human.move)
+	points = game.test_winning_moves(x_marker,o_marker)
 	if points == 10
-		puts "\nComputer Victory!\n\n"
+		puts "Computer Victory!\n\n"
 		break
 	elsif points == -10
-		puts "\nHuman Victory!\n\n"
+		puts "Human Victory!\n\n"
 		break
 	end
+	puts "computer is thinking"
+	computer.find_best_move
+	game.update_board(o_marker,computer.move)
+	
 end
 
-if game.test_winning_moves == 0
-	puts "Looks like a tie"
+if game.test_winning_moves(x_marker,o_marker) == 0
+	puts "Looks like a tie\n\n"
 end
 game.draw_board
 puts "Game Over!"
