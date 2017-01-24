@@ -9,7 +9,9 @@ RSpec.describe Player do
 	end
 	describe "#initialize" do
 		it "should initiate the board the player is playing on" do
-			expect(@player.board).to eq([["","",""],["","",""],["","",""]])
+			expect(@player.board).to eq([["","",""],
+										 ["","",""],
+										 ["","",""]])
 		end
 	end
 
