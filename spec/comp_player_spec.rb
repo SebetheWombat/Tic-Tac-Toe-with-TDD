@@ -1,13 +1,16 @@
 require_relative "../lib/player.rb"
 require_relative "../lib/comp_player.rb"
 require_relative "../lib/game.rb"
+require_relative "../lib/board.rb"
 
 RSpec.describe CompPlayer do
     before(:each) do
         game = Game.new
+        board = Board.new
+        game_board = board.board
         @alpha = -9999
         @beta = 9999
-        @comp_player = CompPlayer.new(game,"O","X")
+        @comp_player = CompPlayer.new(game_board,game,"O","X")
     end
 
     describe "#minimax" do
@@ -67,14 +70,11 @@ RSpec.describe CompPlayer do
             expect(@comp_player.find_best_move(board)).to eq([1,1])
         end
         it "should return a winning computer move on 4X4 board when possible" do
-            g = Game.new(4)
-            c_p = CompPlayer.new(g,"O","X")
             board = [["X","","","O"],
                      ["","","O",""],
                      ["","O","","X"],
                      ["","","",""]]
-            c_p.find_best_move(board)
-            expect(c_p.find_best_move(board)).to eq([3,0])
+            expect(@comp_player.find_best_move(board)).to eq([3,0])
         end
     end
 

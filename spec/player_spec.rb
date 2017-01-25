@@ -1,11 +1,14 @@
 require "stringio"
 require_relative "../lib/player.rb"
 require_relative "../lib/game.rb"
+require_relative "../lib/board.rb"
 
 RSpec.describe Player do
     before(:each) do
         game = Game.new
-        @player = Player.new(game,"X","O")
+        board = Board.new
+        game_board = board.board
+        @player = Player.new(game_board,game,"X","O")
     end
     describe "#initialize" do
         it "should initiate the board the player is playing on" do

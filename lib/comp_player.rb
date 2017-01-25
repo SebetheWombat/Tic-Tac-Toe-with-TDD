@@ -21,8 +21,9 @@ class CompPlayer < Player
 	end
 
 	def traverse_board_depth(best_score,depth,board,player_marker,comp_turn,alpha,beta)
-		@board_size.times do |i|
-			@board_size.times do |j|
+		board_size = board.length
+		board_size.times do |i|
+			board_size.times do |j|
 				if board[i][j] == ""
 					board[i][j] = player_marker
 					if comp_turn
@@ -43,10 +44,11 @@ class CompPlayer < Player
 	end
 
 	def find_best_move(board = @board)
+		board_size = board.length
 		best_move = -9999
 		move = []
-		@board_size.times do |i|
-			@board_size.times do |j|
+		board_size.times do |i|
+			board_size.times do |j|
 				if board[i][j] == ""
 					board[i][j] = @players_marker
 					test_move = minimax(false,0,board,-9999,9999)
