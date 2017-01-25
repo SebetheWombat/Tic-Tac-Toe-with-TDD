@@ -149,6 +149,32 @@ RSpec.describe Game do
 
 		end
 	end
+    describe "#active_game_state?" do
+        it "should return false if there are no available moves" do
+            @game.board = [["X","O","X"],
+                           ["X","O","O"],
+                           ["O","X","X"]]
+            expect(@game.active_game_state?).to eq(false)
+        end
+        it "should return false if computer has won" do
+            @game.board = [["O","O","O"],
+                           ["","X",""],
+                           ["O","X","X"]]
+            expect(@game.active_game_state?).to eq(false)
+        end
+        it "should return false if human has won" do
+            @game.board = [["X","O","O"],
+                           ["","X",""],
+                           ["O","","X"]]
+            expect(@game.active_game_state?).to eq(false)
+        end
+        it "should return true if there are still empty space on board and neither player has won" do
+            @game.board = [["X","O",""],
+                           ["X","","O"],
+                           ["","O","X"]]
+            expect(@game.active_game_state?).to eq(true)
+        end
+    end
 	describe "#draw_board" do
 		it "draws an empty board at the start of the game if no number was specified" do
 			expect { @game.draw_board }.to output("3 |    |   |  \n  | ---+---+---\n2 |    |   |  \n  | ---+---+---\n1 |    |   |  \n  |____________\n     a | b | c \n\n").to_stdout
