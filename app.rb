@@ -25,6 +25,8 @@ while game.any_available_moves?
 		end
 	end
 	game.update_board(x_marker,human.move)
+	computer.find_best_move
+	game.update_board(o_marker,computer.move)
 	points = game.test_winning_moves(x_marker,o_marker)
 	if points == 10
 		puts "Computer Victory!\n\n"
@@ -33,10 +35,6 @@ while game.any_available_moves?
 		puts "Human Victory!\n\n"
 		break
 	end
-	puts "computer is thinking"
-	computer.find_best_move
-	game.update_board(o_marker,computer.move)
-	
 end
 
 if game.test_winning_moves(x_marker,o_marker) == 0
