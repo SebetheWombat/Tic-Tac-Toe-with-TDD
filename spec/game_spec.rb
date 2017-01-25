@@ -5,7 +5,6 @@ RSpec.describe Game do
 		@game = Game.new
 	end
 	
-
 	describe "#any_available_moves?" do
 		it "should return true if there are any open spaces on the board" do
 
@@ -27,83 +26,81 @@ RSpec.describe Game do
 		end
 	end
 
-	
-
 	describe "#test_winning_moves" do
 		it "should return 10 if computer(O) completed a row or column" do
 			board = [ ["O","O","O"],
-							["X","","X"],
-							["","O","X"]]
+					  ["X","","X"],
+					  ["","O","X"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(10)
 
 			board = [ ["","X","O"],
-							["","","O"],
-							["","X","O"]]
+					  ["","","O"],
+					  ["","X","O"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(10)
 		end
 		it "should return 10 for diagonal computer wins" do
 			board = [ ["","","O"],
-							["","O",""],
-							["O","",""]]
+					  ["","O",""],
+					  ["O","",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(10)
 
 			board = [ ["O","",""],
-							["","O",""],
-							["","","O"]]
+					  ["","O",""],
+					  ["","","O"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(10)
 		end
 		it "should return -10 if human(X) player completed a row or column" do
 			board = [["X","X","X"],
-							["","",""],
-							["","",""]]
+					  ["","",""],
+					  ["","",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(-10)
 
 			 board = [["X","O","O"],
-			 				["X","X","X"],
-			 				["","O",""]]
+			 		  ["X","X","X"],
+			 		  ["","O",""]]
 			 expect(@game.test_winning_moves("X","O",board)).to eq(-10)
 
 			board = [ ["","X",""],
-							["","X",""],
-							["","X",""]]
+					  ["","X",""],
+					  ["","X",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(-10)
 		end
 		it "should return -10 for diagonal human wins" do
 			board = [ ["X","",""],
-							["","X",""],
-							["","","X"]]
+					  ["","X",""],
+					  ["","","X"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(-10)
 
 			board = [ ["","","X"],
-							["","X",""],
-							["X","",""]]
+					  ["","X",""],
+					  ["X","",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(-10)
 		end
 		it "should return 0 if there are no completed rows, columns, or diagonals" do
 			board = [ ["","","O"],
-							["","","X"],
-							["O","",""]]
+					  ["","","X"],
+					  ["O","",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 		end
 		it "should return 0 if completed row, column, or diagonal is occupied by both players" do
 			board = [ ["O","X","O"],
-							["X","","X"],
-							["","O","X"]]
+					  ["X","","X"],
+					  ["","O","X"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 
 			board = [ ["","","O"],
-							["","X",""],
-							["O","",""]]
+					  ["","X",""],
+					  ["O","",""]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 
 			board = [ ["","X","O"],
-							["","","X"],
-							["","X","O"]]
+					  ["","","X"],
+					  ["","X","O"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 
 			board = [ ["O","",""],
-							["","X",""],
-							["","","X"]]
+					  ["","X",""],
+					  ["","","X"]]
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 		end
 		it "should return correct numbers for winning moves on 4x4 board" do

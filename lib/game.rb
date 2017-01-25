@@ -56,8 +56,8 @@ class Game
         0
     end
 
-    def outcome(x,o,board)
-        points = test_winning_moves(x,o,board)
+    def outcome(x_marker,o_marker,board)
+        points = test_winning_moves(x_marker,o_marker,board)
         if points == 10
             return "Computer Victory!\n\n"
         elsif points == -10

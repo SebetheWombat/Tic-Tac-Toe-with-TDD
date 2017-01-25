@@ -1,5 +1,5 @@
 class Player
-	attr_accessor :board, :move
+	attr_accessor :board
 	def initialize(board,game,players_marker,opponents_marker)
 		@board = board
 		@board_size = board.length
@@ -13,8 +13,10 @@ class Player
 		input = gets.chomp.gsub(" ", "")
 		input = input.split("")
 		if input.length == 2
-			move[0] = @board_size - input[1].to_i
-			move[1] = (input[0].downcase.ord - 97)
+			if input[1].to_i > 0
+				move[0] = @board_size - input[1].to_i
+				move[1] = (input[0].downcase.ord - 97)
+			end
 		end
 		move
 	end

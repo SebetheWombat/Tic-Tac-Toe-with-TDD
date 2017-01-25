@@ -3,6 +3,7 @@ require_relative "lib/player.rb"
 require_relative "lib/comp_player.rb"
 require_relative "lib/display.rb"
 require_relative "lib/board.rb"
+require_relative "lib/game_setup.rb"
 
 x_marker = "X"
 o_marker = "O"
@@ -10,29 +11,46 @@ game = Game.new
 board = Board.new()
 game_board = board.board
 display = Display.new
-human = Player.new(game_board,game,x_marker,o_marker)
-computer = CompPlayer.new(game_board,game,o_marker,x_marker)
+player_one = Player.new(game_board,game,x_marker,o_marker)
+game_setup = GameSetup.new
 
-puts "\n\nHello human! I challenge you to a game of tic tac toe!"
-puts "What's that? You never heard of tic tac toe? \nWell it's okay because I am a computer so I know many things."
-puts "You want to connect a line of three. \nYou won't because I'm just that good but you can still try."
-puts "To make a move just type in the position on the board where you would like to place your marker. \nFor example type a1 to claim the bottom left corner or c3 to claim the top right."
-puts "I'll even let you go first because I am a gracious winner.\n\n"
+puts game_setup.instructions
+
+puts "Choose 1 or 2 players"
+players = game_setup.determine_players
+until game_setup.valid?(players)
+	puts "Choose 1 or 2 players"
+	players = game_setup.determine_players
+end
+
+player_two = game_setup.set_player_two(players,game_board,game,o_marker,x_marker)
 
 while game.any_available_moves?(game_board)
 	display.draw_board(game_board)
-	puts "Your move: "
+	puts "Player one your move: "
 	move = [-1,-1]
-	until human.is_move_valid?(move)
-		move = human.make_move
+	until player_one.is_move_valid?(move)
+		move = player_one.make_move
 		puts ""
-		if !human.is_move_valid?(move)
+		if !player_one.is_move_valid?(move)
 			puts "Sorry what was that?"
 		end
 	end
 	board.update(x_marker,move)
 	break if game.outcome(x_marker,o_marker,game_board) != "active"
-	move = computer.find_best_move
+	if players == 1	
+		move = player_two.find_best_move
+	else
+		display.draw_board(game_board)
+		puts "Player two your move: "
+		until player_two.is_move_valid?(move)
+			move = player_two.make_move
+			puts ""
+			if !player_two.is_move_valid?(move)
+				puts "Sorry what was that?"
+			end
+		end
+	end
 	board.update(o_marker,move)
 	break if game.outcome(x_marker,o_marker,game_board) != "active"
 end
