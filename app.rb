@@ -1,10 +1,12 @@
 require_relative "lib/game.rb"
 require_relative "lib/player.rb"
 require_relative "lib/comp_player.rb"
+require_relative "lib/display.rb"
 
 x_marker = "X"
 o_marker = "O"
 game = Game.new()
+display = Display.new
 human = Player.new(game,x_marker,o_marker)
 computer = CompPlayer.new(game,o_marker,x_marker)
 
@@ -15,7 +17,7 @@ puts "To make a move just type in the position on the board where you would like
 puts "I'll even let you go first because I am a gracious winner.\n\n"
 
 while game.any_available_moves?
-	game.draw_board
+	display.draw_board(game.board)
 	puts "Your move: "
 	move = [-1,-1]
 	until human.is_move_valid?(move)
@@ -26,14 +28,12 @@ while game.any_available_moves?
 		end
 	end
 	game.update_board(x_marker,move)
-	break if !game.active_game_state?
+	break if game.outcome(x_marker,o_marker) != "active"
 	move = computer.find_best_move
 	game.update_board(o_marker,move)
-	break if !game.active_game_state?
+	break if game.outcome(x_marker,o_marker) != "active"
 end
 
-if game.test_winning_moves(x_marker,o_marker) == 0
-	puts "Looks like a tie\n\n"
-end
-game.draw_board
+puts game.outcome(x_marker,o_marker)
+display.draw_board(game.board)
 puts "Game Over!"

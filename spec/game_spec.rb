@@ -149,47 +149,32 @@ RSpec.describe Game do
 
 		end
 	end
-    describe "#active_game_state?" do
-        it "should return false if there are no available moves" do
+    describe "#outcome" do
+        it "should return appropriate message if there are no available moves" do
             @game.board = [["X","O","X"],
                            ["X","O","O"],
                            ["O","X","X"]]
-            expect(@game.active_game_state?).to eq(false)
+            expect(@game.outcome("X","O")).to eq("Looks like a tie.\n\n")
         end
-        it "should return false if computer has won" do
+        it "should return appropriate message if computer has won" do
             @game.board = [["O","O","O"],
                            ["","X",""],
                            ["O","X","X"]]
-            expect(@game.active_game_state?).to eq(false)
+            expect(@game.outcome("X","O")).to eq("Computer Victory!\n\n")
         end
-        it "should return false if human has won" do
+        it "should return appropriate message if human has won" do
             @game.board = [["X","O","O"],
                            ["","X",""],
                            ["O","","X"]]
-            expect(@game.active_game_state?).to eq(false)
+            expect(@game.outcome("X","O")).to eq("Human Victory!\n\n")
         end
-        it "should return true if there are still empty space on board and neither player has won" do
+        it "should return 'active' if there are still empty space on board and neither player has won" do
             @game.board = [["X","O",""],
                            ["X","","O"],
                            ["","O","X"]]
-            expect(@game.active_game_state?).to eq(true)
+            expect(@game.outcome("X","O")).to eq("active")
         end
     end
-	describe "#draw_board" do
-		it "draws an empty board at the start of the game if no number was specified" do
-			expect { @game.draw_board }.to output("3 |    |   |  \n  | ---+---+---\n2 |    |   |  \n  | ---+---+---\n1 |    |   |  \n  |____________\n     a | b | c \n\n").to_stdout
-		end
-		it "draws an empty 4X4 board at start of game if size 4 was specified" do
-			game_four = Game.new(4)
-			expect { game_four.draw_board }.to output("4 |    |   |   |  \n  | ---+---+---+---\n3 |    |   |   |  \n  | ---+---+---+---\n2 |    |   |   |  \n  | ---+---+---+---\n1 |    |   |   |  \n  |________________\n     a | b | c | d \n\n").to_stdout
-
-		end
-		it "draws 'X' and 'O' on board in appropriate spots during game" do
-			@game.board = [["O","",""],["","X",""],["","O","X"]]
-			expect { @game.draw_board }.to output("3 |  O |   |  \n  | ---+---+---\n2 |    | X |  \n  | ---+---+---\n1 |    | O | X\n  |____________\n     a | b | c \n\n").to_stdout
-	
-		end
-	end
 
 
 end

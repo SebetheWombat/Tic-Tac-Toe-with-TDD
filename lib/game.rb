@@ -1,6 +1,7 @@
 class Game
 	attr_accessor :board
 	def initialize(board_size = 3)
+		#board functionality
 		@board = []
 		board_size.times do |x|
 			@board << []
@@ -11,6 +12,7 @@ class Game
 		@board_size = board_size
 	end
 
+	#game state functionality
 	def any_available_moves?(board=@board)
 		@board_size.times do |i|
 			@board_size.times do |j|
@@ -22,12 +24,14 @@ class Game
 		false
 	end
 
+	#board functionality
 	def update_board(player,move)
 		x = move[0]
 		y = move[1]
 		@board[x][y] = player
 	end
 
+	#game state functionality
 	def test_winning_moves(x_marker,o_marker,board=@board)
 		#row win
 		@board.each do |row|
@@ -72,47 +76,20 @@ class Game
 		0
 	end
 
-	def active_game_state?
-		points = test_winning_moves("X","O")
+	#game state functionality
+	def outcome(x,o)
+		points = test_winning_moves(x,o)
 		if points == 10
-			puts "Computer Victory!\n\n"
-			return false
+			return "Computer Victory!\n\n"
 		elsif points == -10
-			puts "Human Victory!\n\n"
-			return false
+			return "Human Victory!\n\n"
 		elsif !any_available_moves?
-			return false
+			return "Looks like a tie.\n\n"
 		end
-		true
+		return "active"
 	end
 
-	def draw_board
-		col = []
-		@board_size.times do |i|
-			row = @board_size - i
-			col << i
-			print row.to_s + " | "
-			@board_size.times do |j|
-				if @board[i][j] == ""
-					print "  "
-				else
-					print " " + @board[i][j]
-				end
-				if j < @board_size - 1
-					print " |"
-				end 				
-			end
-			if i < @board_size - 1
-				puts "\n  | " + "---+" * (@board_size - 1) + "---"
-			end
-		end
-		puts "\n  |" + "____" * @board_size
-		print "    "
-		col.each do |c|
-			print c == @board_size-1? " #{(c + 97).chr} ": " #{(c + 97).chr} |"
-		end
-		puts "\n\n"
-	end
+	
 	
 	
 end
