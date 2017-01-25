@@ -5,6 +5,8 @@ require_relative "../lib/game.rb"
 RSpec.describe CompPlayer do
 	before(:each) do
 		game = Game.new
+		@alpha = -9999
+		@beta = 9999
 		@comp_player = CompPlayer.new(game,"O","X")
 	end
 
@@ -13,19 +15,19 @@ RSpec.describe CompPlayer do
 			board = [["O","",""],
 					 ["O","",""],
 					 ["","","X"]]
-			expect(@comp_player.minimax(true, 0, board)).to be > 0
+			expect(@comp_player.minimax(true, 0, board,@alpha,@beta)).to be > 0
 		end
 		it "should return a negative number for moves likely to result in the human player's win" do
 			board = [["X","","X"],
 					 ["", "",""],
 					 ["X","","X"]]
-			expect(@comp_player.minimax(true, 0, board)).to be < 0
+			expect(@comp_player.minimax(true, 0, board,@alpha,@beta)).to be < 0
 		end
 		it "should return 0 for moves that'll result in a tie" do
 			board = [["X","O","X"],
 					 ["O","X","X"],
 					 ["", "", "O"]]
-			expect(@comp_player.minimax(true, 0, board)).to eq(0)
+			expect(@comp_player.minimax(true, 0, board,@alpha,@beta)).to eq(0)
 		end
 	end
 
@@ -34,19 +36,19 @@ RSpec.describe CompPlayer do
 			board = [["O","",""],
 					 ["O","",""],
 					 ["","","X"]]
-			expect(@comp_player.traverse_board_depth(-9999,0,board,"O",true)).to be > 0
+			expect(@comp_player.traverse_board_depth(-9999,0,board,"O",true,@alpha,@beta)).to be > 0
 		end
 		it "should return a negative number for moves likely to result in the human player's win" do
 			board = [["X","","X"],
 					 ["", "",""],
 					 ["X","","X"]]
-			expect(@comp_player.traverse_board_depth(9999,0,board,"X",false)).to be < 0
+			expect(@comp_player.traverse_board_depth(9999,0,board,"X",false,@alpha,@beta)).to be < 0
 		end
 		it "should return 0 for moves that'll result in a tie" do
 			board = [["O","X","O"],
 					 ["X","O","O"],
 					 ["", "", "X"]]
-			expect(@comp_player.traverse_board_depth(9999,0,board,"X",false)).to eq(0)
+			expect(@comp_player.traverse_board_depth(9999,0,board,"X",false,@alpha,@beta)).to eq(0)
 		end
 	end
 
@@ -68,10 +70,10 @@ RSpec.describe CompPlayer do
 		it "should return a positive number for moves that can result in a computer win" do
 			g = Game.new(4)
 			c_p = CompPlayer.new(g,"O","X")
-			board = [["X","X","","O"],
+			board = [["X","","","O"],
 					 ["","","O",""],
 					 ["","O","","X"],
-					 ["","X","",""]]
+					 ["","","",""]]
 			c_p.find_best_move(board)
 			expect(c_p.move).to eq([3,0])
 		end
