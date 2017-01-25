@@ -44,6 +44,7 @@ class CompPlayer < Player
 
 	def find_best_move(board = @board)
 		best_move = -9999
+		move = []
 		@board_size.times do |i|
 			@board_size.times do |j|
 				if board[i][j] == ""
@@ -51,12 +52,13 @@ class CompPlayer < Player
 					test_move = minimax(false,0,board,-9999,9999)
 					board[i][j] = ""
 					if test_move > best_move
-						@move = [i,j]
+						move = [i,j]
 						best_move = test_move
 					end
 				end
 			end
 		end
+		move
 	end
 end
 

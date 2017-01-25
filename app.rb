@@ -4,7 +4,7 @@ require_relative "lib/comp_player.rb"
 
 x_marker = "X"
 o_marker = "O"
-game = Game.new(4)
+game = Game.new()
 human = Player.new(game,x_marker,o_marker)
 computer = CompPlayer.new(game,o_marker,x_marker)
 
@@ -17,24 +17,19 @@ puts "I'll even let you go first because I am a gracious winner.\n\n"
 while game.any_available_moves?
 	game.draw_board
 	puts "Your move: "
-	until human.is_move_valid?
-		human.make_move
+	move = [-1,-1]
+	until human.is_move_valid?(move)
+		move = human.make_move
 		puts ""
-		if !human.is_move_valid?
+		if !human.is_move_valid?(move)
 			puts "Sorry what was that?"
 		end
 	end
-	game.update_board(x_marker,human.move)
-	computer.find_best_move
-	game.update_board(o_marker,computer.move)
-	points = game.test_winning_moves(x_marker,o_marker)
-	if points == 10
-		puts "Computer Victory!\n\n"
-		break
-	elsif points == -10
-		puts "Human Victory!\n\n"
-		break
-	end
+	game.update_board(x_marker,move)
+	break if !game.active_game_state?
+	move = computer.find_best_move
+	game.update_board(o_marker,move)
+	break if !game.active_game_state?
 end
 
 if game.test_winning_moves(x_marker,o_marker) == 0

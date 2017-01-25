@@ -57,15 +57,14 @@ RSpec.describe CompPlayer do
             board = [["X","O",""],
                      ["X","", ""],
                      ["", "","O"]]
-            @comp_player.find_best_move(board)
-            expect(@comp_player.move).to eq([2,0])
+            expect(@comp_player.find_best_move(board)).to eq([2,0])
         end
         it "should update computer's move to block human's move when possible" do
             board = [["X","O",""],
                      ["", "", "X"],
                      ["", "O",""]]
             @comp_player.find_best_move(board)
-            expect(@comp_player.move).to eq([1,1])
+            expect(@comp_player.find_best_move(board)).to eq([1,1])
         end
         it "should return a winning computer move on 4X4 board when possible" do
             g = Game.new(4)
@@ -75,7 +74,7 @@ RSpec.describe CompPlayer do
                      ["","O","","X"],
                      ["","","",""]]
             c_p.find_best_move(board)
-            expect(c_p.move).to eq([3,0])
+            expect(c_p.find_best_move(board)).to eq([3,0])
         end
     end
 

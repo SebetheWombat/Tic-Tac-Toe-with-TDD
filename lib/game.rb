@@ -72,6 +72,20 @@ class Game
 		0
 	end
 
+	def active_game_state?
+		points = test_winning_moves("X","O")
+		if points == 10
+			puts "Computer Victory!\n\n"
+			return false
+		elsif points == -10
+			puts "Human Victory!\n\n"
+			return false
+		elsif !any_available_moves?
+			return false
+		end
+		true
+	end
+
 	def draw_board
 		col = []
 		@board_size.times do |i|
