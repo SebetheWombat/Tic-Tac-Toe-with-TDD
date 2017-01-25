@@ -150,12 +150,17 @@ RSpec.describe Game do
 		end
 	end
 	describe "#draw_board" do
-		it "draws and empty board at the start of the game" do
-			expect { @game.draw_board }.to output("3 |    |   |  \n  | ---+---+---\n2 |    |   |  \n  | ---+---+---\n1 |    |   |  \n  |____________\n     a | b | c\n\n").to_stdout
+		it "draws an empty board at the start of the game if no number was specified" do
+			expect { @game.draw_board }.to output("3 |    |   |  \n  | ---+---+---\n2 |    |   |  \n  | ---+---+---\n1 |    |   |  \n  |____________\n     a | b | c \n\n").to_stdout
+		end
+		it "draws an empty 4X4 board at start of game if size 4 was specified" do
+			game_four = Game.new(4)
+			expect { game_four.draw_board }.to output("4 |    |   |   |  \n  | ---+---+---+---\n3 |    |   |   |  \n  | ---+---+---+---\n2 |    |   |   |  \n  | ---+---+---+---\n1 |    |   |   |  \n  |________________\n     a | b | c | d \n\n").to_stdout
+
 		end
 		it "draws 'X' and 'O' on board in appropriate spots during game" do
 			@game.board = [["O","",""],["","X",""],["","O","X"]]
-			expect { @game.draw_board }.to output("3 |  O |   |  \n  | ---+---+---\n2 |    | X |  \n  | ---+---+---\n1 |    | O | X\n  |____________\n     a | b | c\n\n").to_stdout
+			expect { @game.draw_board }.to output("3 |  O |   |  \n  | ---+---+---\n2 |    | X |  \n  | ---+---+---\n1 |    | O | X\n  |____________\n     a | b | c \n\n").to_stdout
 	
 		end
 	end

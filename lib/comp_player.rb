@@ -1,4 +1,3 @@
-#TODO: make find_best_move more efficient to work with 4x4 game
 class CompPlayer < Player
 	
 	def minimax(comp_turn, depth, board, alpha, beta)

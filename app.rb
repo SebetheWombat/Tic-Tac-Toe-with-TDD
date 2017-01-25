@@ -4,7 +4,7 @@ require_relative "lib/comp_player.rb"
 
 x_marker = "X"
 o_marker = "O"
-game = Game.new()
+game = Game.new(4)
 human = Player.new(game,x_marker,o_marker)
 computer = CompPlayer.new(game,o_marker,x_marker)
 
