@@ -29,7 +29,7 @@ class GameSetup
 		if players == 1
 			return CompPlayer.new(game_board,game,o_marker,x_marker)
 		else
-			return Player.new(game_board,game,o_marker,x_marker)
+			return Player.new(game_board,o_marker,x_marker)
 		end
 	end
 

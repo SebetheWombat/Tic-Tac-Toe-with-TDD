@@ -1,9 +1,8 @@
 class Player
 	attr_accessor :board
-	def initialize(board,game,players_marker,opponents_marker)
+	def initialize(board,players_marker,opponents_marker)
 		@board = board
 		@board_size = board.length
-		@game = game
 		@players_marker = players_marker
 		@opponents_marker = opponents_marker
 	end

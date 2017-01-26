@@ -1,7 +1,15 @@
 class CompPlayer < Player
+
+	def initialize(board,state_checker,players_marker,opponents_marker)
+		@board = board
+		@board_size = board.length
+		@state_checker = state_checker
+		@players_marker = players_marker
+		@opponents_marker = opponents_marker
+	end
 	
 	def minimax(comp_turn, depth, board, alpha, beta)
-		points = @game.test_winning_moves(@opponents_marker,@players_marker,board)
+		points = @state_checker.test_winning_moves(@opponents_marker,@players_marker,board)
 
 		if points == 10 || depth == 5
 			return points - depth
@@ -9,7 +17,7 @@ class CompPlayer < Player
 		if points == -10 || depth == 5
 			return points + depth
 		end
-		if !@game.any_available_moves?(board)
+		if !@state_checker.any_available_moves?(board)
 			return 0
 		end
 
@@ -43,7 +51,7 @@ class CompPlayer < Player
 		best_score
 	end
 
-	def find_best_move(board = @board)
+	def make_move(board = @board)
 		board_size = board.length
 		best_move = -9999
 		move = []

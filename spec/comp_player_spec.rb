@@ -1,11 +1,11 @@
 require_relative "../lib/player.rb"
 require_relative "../lib/comp_player.rb"
-require_relative "../lib/game.rb"
+require_relative "../lib/game_state_checker.rb"
 require_relative "../lib/board.rb"
 
 RSpec.describe CompPlayer do
     before(:each) do
-        game = Game.new
+        game = GameStateChecker.new
         board = Board.new
         game_board = board.board
         @alpha = -9999
@@ -55,26 +55,26 @@ RSpec.describe CompPlayer do
         end
     end
 
-    describe "#find_best_move" do
+    describe "#make_move" do
         it "should update the computer's move to winning move when possible" do
             board = [["X","O",""],
                      ["X","", ""],
                      ["", "","O"]]
-            expect(@comp_player.find_best_move(board)).to eq([2,0])
+            expect(@comp_player.make_move(board)).to eq([2,0])
         end
         it "should update computer's move to block human's move when possible" do
             board = [["X","O",""],
                      ["", "", "X"],
                      ["", "O",""]]
-            @comp_player.find_best_move(board)
-            expect(@comp_player.find_best_move(board)).to eq([1,1])
+            @comp_player.make_move(board)
+            expect(@comp_player.make_move(board)).to eq([1,1])
         end
         it "should return a winning computer move on 4X4 board when possible" do
             board = [["X","","","O"],
                      ["","","O",""],
                      ["","O","","X"],
                      ["","","",""]]
-            expect(@comp_player.find_best_move(board)).to eq([3,0])
+            expect(@comp_player.make_move(board)).to eq([3,0])
         end
     end
 
