@@ -1,4 +1,15 @@
 class Display
+	def instructions
+		text = %q(
+		You are about to play a game of tic tac toe. 
+		The aim of this classic game is to complete a row, column or diagonal.
+		To make a move type in the position where you would like to place your marker. 
+		For example type a1 to claim the bottom left corner or c3 to claim the top right.
+		
+		)
+		text.gsub("\t","")
+	end
+
 	def draw_board(board)
 		board_size = board.length
 		col = []

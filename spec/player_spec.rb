@@ -8,7 +8,7 @@ RSpec.describe Player do
         game = Game.new
         board = Board.new
         game_board = board.board
-        @player = Player.new(game_board,"X","O")
+        @player = Player.new(game_board)
     end
     describe "#initialize" do
         it "should initiate the board the player is playing on" do

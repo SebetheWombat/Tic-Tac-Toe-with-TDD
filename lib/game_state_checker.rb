@@ -11,18 +11,38 @@ class GameStateChecker
         false
     end
     
-    def test_winning_moves(x_marker,o_marker,board)
+    def test_winning_moves(x_marker,o_marker,board)        
+        diag = check_diag_win(x_marker,o_marker,board)
+        col = check_col_win(x_marker,o_marker,board)
+        row = check_row_win(x_marker,o_marker,board)
+
+        points = [row,col,diag]
+
+        return 10 if points.max == 10
+        return -10 if points.min == -10
+        0
+    end
+
+    def check_diag_win(x_marker,o_marker,board)
         board_size = board.length
-        #row win
-        board.each do |row|
-            if row.all? {|m| m == o_marker}
-                return 10
-            elsif row.all? {|m| m == x_marker}
-                return -10
-            end
+        right_diag = (0...board_size).map { |i| board[i][i]}
+        if right_diag.all? {|m| m == o_marker}
+            return 10
+        elsif right_diag.all? {|m| m == x_marker}
+            return -10
         end
 
-        #column win
+        left_diag = (0...board_size).map { |i| board[i][board_size - i - 1]}
+        if left_diag.all? {|m| m == o_marker}
+            return 10
+        elsif left_diag.all? {|m| m ==x_marker}
+            return -10
+        end
+        0
+    end
+
+    def check_col_win(x_marker,o_marker,board)
+        board_size = board.length
         board_size.times do |r|
             column_counter = 1
             (board_size-1).times do |c|
@@ -38,30 +58,26 @@ class GameStateChecker
                 end
             end
         end
+        0
+    end
 
-        #Diagonal win test
-        right_diag = (0...board_size).map { |i| board[i][i]}
-        if right_diag.all? {|m| m == o_marker}
-            return 10
-        elsif right_diag.all? {|m| m == x_marker}
-            return -10
+    def check_row_win(x_marker,o_marker,board)
+        board.each do |row|
+            if row.all? {|m| m == o_marker}
+                return 10
+            elsif row.all? {|m| m == x_marker}
+                return -10
+            end
         end
-
-        left_diag = (0...board_size).map { |i| board[i][board_size - i - 1]}
-        if left_diag.all? {|m| m == o_marker}
-            return 10
-        elsif left_diag.all? {|m| m ==x_marker}
-            return -10
-        end 
         0
     end
 
     def outcome(x_marker,o_marker,board)
         points = test_winning_moves(x_marker,o_marker,board)
         if points == 10
-            return "Computer Victory!\n\n"
+            return "#{o_marker} is the winner!\n\n"
         elsif points == -10
-            return "Human Victory!\n\n"
+            return "#{x_marker} is the winner!\n\n"
         elsif !any_available_moves?(board)
             return "Looks like a tie.\n\n"
         end

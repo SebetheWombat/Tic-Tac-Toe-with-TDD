@@ -7,7 +7,7 @@ RSpec.describe Game do
         board = [["","",""],
                  ["","",""],
                  ["","",""]]
-        @player = Player.new(board,"X","O")
+        @player = Player.new(board)
     end
     describe "#player_makes_move" do
         it "should return a valid move" do

@@ -10,13 +10,13 @@ x_marker = "X"
 o_marker = "O"
 game_state = GameStateChecker.new
 current_game = Game.new
-board = Board.new()
+board = Board.new
 game_board = board.board
 display = Display.new
-player_one = Player.new(game_board,x_marker,o_marker)
+player_one = Player.new(game_board)
 game_setup = GameSetup.new
 
-puts game_setup.instructions
+puts display.instructions
 
 puts "Choose 1 or 2 players"
 players = game_setup.determine_players
@@ -36,7 +36,7 @@ while game_state.any_available_moves?(game_board)
 	display.draw_board(game_board)
 	puts "Player two your move: "
 	move = current_game.player_makes_move(player_two)
-	board.update(o_marker,move)
+	board.update(o_marker,move)	
 	break if game_state.outcome(x_marker,o_marker,game_board) != "active"
 end
 

@@ -123,13 +123,13 @@ RSpec.describe GameStateChecker do
             board = [["O","O","O"],
                      ["","X",""],
                      ["O","X","X"]]
-            expect(@game.outcome("X","O",board)).to eq("Computer Victory!\n\n")
+            expect(@game.outcome("X","O",board)).to eq("O is the winner!\n\n")
         end
         it "should return appropriate message if human has won" do
             board = [["X","O","O"],
                      ["","X",""],
                      ["O","","X"]]
-            expect(@game.outcome("X","O",board)).to eq("Human Victory!\n\n")
+            expect(@game.outcome("X","O",board)).to eq("X is the winner!\n\n")
         end
         it "should return 'active' if there are still empty space on board and neither player has won" do
             board = [["X","O",""],

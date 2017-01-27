@@ -42,10 +42,13 @@ class CompPlayer < Player
 						beta = [beta,best_score].min
 					end
 					board[i][j] = ""
-					if beta <= alpha
-						break
-					end
 				end
+				if beta <= alpha
+					break
+				end
+			end
+			if beta <= alpha
+				break
 			end
 		end
 		best_score

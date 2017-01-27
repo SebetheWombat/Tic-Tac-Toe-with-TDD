@@ -1,10 +1,8 @@
 class Player
 	attr_accessor :board
-	def initialize(board,players_marker,opponents_marker)
+	def initialize(board)
 		@board = board
 		@board_size = board.length
-		@players_marker = players_marker
-		@opponents_marker = opponents_marker
 	end
 
 	def make_move
