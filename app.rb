@@ -10,19 +10,26 @@ x_marker = "X"
 o_marker = "O"
 game_state = GameStateChecker.new
 current_game = Game.new
-board = Board.new
-game_board = board.board
 display = Display.new
-player_one = Player.new(game_board)
 game_setup = GameSetup.new
-
 puts display.instructions
 
+puts "What size game board would you like? (Enter 3, 4, or 5)"
+board_size = game_setup.get_number_from_user
+until game_setup.board_size_valid?(board_size)
+	puts "Enter 3, 4, or 5"
+	board_size = game_setup.get_number_from_user
+end
+
+board = Board.new(board_size)
+game_board = board.board
+player_one = Player.new(game_board)
+
 puts "Choose 1 or 2 players"
-players = game_setup.determine_players
-until game_setup.valid?(players)
+players = game_setup.get_number_from_user
+until game_setup.number_players_valid?(players)
 	puts "Choose 1 or 2 players"
-	players = game_setup.determine_players
+	players = game_setup.get_number_from_user
 end
 
 player_two = game_setup.set_player_two(players,game_board,game_state,o_marker,x_marker)
