@@ -20,32 +20,32 @@ until game_setup.board_size_valid?(board_size)
 end
 
 board = Board.new(board_size)
-game_board = board.board
-player_one = Player.new(game_board)
+active_game_board = board.active_board
+playerX = Player.new(active_game_board)
 
 puts "Choose 1 or 2 players"
-players = game_setup.get_number_from_user
-until game_setup.number_players_valid?(players)
+number_of_players = game_setup.get_number_from_user
+until game_setup.number_players_valid?(number_of_players)
 	puts "Choose 1 or 2 players"
-	players = game_setup.get_number_from_user
+	number_of_players = game_setup.get_number_from_user
 end
 
-player_two = game_setup.set_player_two(players,game_board,game_state,o_marker,x_marker)
+playerO = game_setup.set_player_two(number_of_players,active_game_board,game_state,o_marker,x_marker)
 
-while game_state.any_available_moves?(game_board)
-	display.draw_board(game_board)
+while game_state.any_available_moves?(active_game_board)
+	display.draw_board(active_game_board)
 	puts "Player one your move: "
-	move = player_one.make_move
-	board.update(x_marker,move)
-	break if game_state.outcome(x_marker,o_marker,game_board) != "active"
-	display.draw_board(game_board)
+	playerX_move = playerX.make_move
+	board.update(x_marker,playerX_move)
+	break if game_state.outcome(x_marker,o_marker,active_game_board) != "active"
+	display.draw_board(active_game_board)
 	puts "Player two your move: "
-	move = player_two.make_move
-	board.update(o_marker,move)	
-	break if game_state.outcome(x_marker,o_marker,game_board) != "active"
+	playerO_move = playerO.make_move
+	board.update(o_marker,playerO_move)	
+	break if game_state.outcome(x_marker,o_marker,active_game_board) != "active"
 end
 
-puts game_state.outcome(x_marker,o_marker,game_board)
-display.draw_board(game_board)
+puts game_state.outcome(x_marker,o_marker,active_game_board)
+display.draw_board(active_game_board)
 puts "Game Over!"
 
