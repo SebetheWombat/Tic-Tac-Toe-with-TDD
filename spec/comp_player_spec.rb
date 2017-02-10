@@ -7,7 +7,7 @@ RSpec.describe CompPlayer do
     before(:each) do
         game = GameStateChecker.new
         board = Board.new
-        game_board = board.board
+        game_board = board.active_board
         @alpha = -9999
         @beta = 9999
         @comp_player = CompPlayer.new(game_board,game,"O","X")

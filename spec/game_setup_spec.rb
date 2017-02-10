@@ -1,7 +1,7 @@
 require_relative "../lib/game_setup.rb"
+require_relative "../lib/game_state_checker.rb"
 require_relative "../lib/player.rb"
 require_relative "../lib/comp_player.rb"
-require_relative "../lib/game.rb"
 
 RSpec.describe GameSetup do
 	before(:each) do
@@ -47,14 +47,14 @@ RSpec.describe GameSetup do
     		board = [["","",""],
                      ["","",""],
                      ["","",""]]
-            game = Game.new
+            game = GameStateChecker.new
             expect(@setup.set_player_two(1,board,game,"O","X")).to be_a(CompPlayer)
         end
         it "should return a human player if not a 1 player game" do
             board = [["","",""],
                      ["","",""],
                      ["","",""]]
-            game = Game.new
+            game = GameStateChecker.new
             expect(@setup.set_player_two(2,board,game,"O","X")).to be_a(Player)
             expect(@setup.set_player_two(2,board,game,"O","X")).to_not be_a(CompPlayer)
         end
