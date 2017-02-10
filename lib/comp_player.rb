@@ -7,6 +7,28 @@ class CompPlayer < Player
 		@players_marker = players_marker
 		@opponents_marker = opponents_marker
 	end
+
+	def make_move(board = @board)
+		board_size = board.length
+		best_move = -9999
+		move = []
+		board_size.times do |i|
+			board_size.times do |j|
+				if board[i][j] == ""
+					board[i][j] = @players_marker
+					test_move = minimax(false,0,board,-9999,9999)
+					board[i][j] = ""
+					if test_move > best_move
+						move = [i,j]
+						best_move = test_move
+					end
+				end
+			end
+		end
+		move
+	end
+
+	private
 	
 	def minimax(comp_turn, depth, board, alpha, beta)
 		points = @state_checker.test_winning_moves(@opponents_marker,@players_marker,board)
@@ -54,24 +76,6 @@ class CompPlayer < Player
 		best_score
 	end
 
-	def make_move(board = @board)
-		board_size = board.length
-		best_move = -9999
-		move = []
-		board_size.times do |i|
-			board_size.times do |j|
-				if board[i][j] == ""
-					board[i][j] = @players_marker
-					test_move = minimax(false,0,board,-9999,9999)
-					board[i][j] = ""
-					if test_move > best_move
-						move = [i,j]
-						best_move = test_move
-					end
-				end
-			end
-		end
-		move
-	end
+	
 end
 

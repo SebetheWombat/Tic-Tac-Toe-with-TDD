@@ -23,6 +23,8 @@ class GameStateChecker
         0
     end
 
+    private
+
     def check_diag_win(x_marker,o_marker,board)
         board_size = board.length
         right_diag = (0...board_size).map { |i| board[i][i]}
@@ -72,6 +74,8 @@ class GameStateChecker
         0
     end
 
+    public
+    
     def outcome(x_marker,o_marker,board)
         points = test_winning_moves(x_marker,o_marker,board)
         if points == 10

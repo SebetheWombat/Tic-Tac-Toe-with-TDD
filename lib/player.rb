@@ -7,6 +7,18 @@ class Player
 
 	def make_move
 		move = [-1,-1]
+		until is_move_valid?(move)
+			move = prompt_for_user(move)
+			if !is_move_valid?(move)
+				alert_player
+			end
+		end
+		move
+	end
+
+	private
+
+	def prompt_for_user(move)
 		input = gets.chomp.gsub(" ", "")
 		input = input.split("")
 		if input.length == 2
@@ -16,6 +28,10 @@ class Player
 			end
 		end
 		move
+	end
+
+	def alert_player
+		puts "Sorry what was that?"
 	end
 
 	def is_move_valid?(move)
