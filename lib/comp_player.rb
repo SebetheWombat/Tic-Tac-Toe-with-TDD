@@ -10,22 +10,22 @@ class CompPlayer < Player
 
 	def make_move(board = @board)
 		board_size = board.length
-		best_move = -9999
-		move = []
+		best_move_score = -9999
+		best_move = []
 		board_size.times do |i|
 			board_size.times do |j|
 				if board[i][j] == ""
 					board[i][j] = @players_marker
-					test_move = minimax(false,0,board,-9999,9999)
+					test_move_score = minimax(false,0,board,-9999,9999)
 					board[i][j] = ""
-					if test_move > best_move
-						move = [i,j]
-						best_move = test_move
+					if test_move_score > best_move_score
+						best_move = [i,j]
+						best_move_score = test_move_score
 					end
 				end
 			end
 		end
-		move
+		best_move
 	end
 
 	private

@@ -8,28 +8,6 @@ RSpec.describe Player do
         game_board = board.active_board
         @player = Player.new(game_board)
     end
-    describe "#initialize" do
-        it "should initiate the board the player is playing on" do
-            expect(@player.board).to eq([["","",""],
-                                         ["","",""],
-                                         ["","",""]])
-        end
-    end
-
-    describe "is_move_valid?" do
-        it "should return false for moves to occupied spaces" do
-            @player.board[0][0] = "X"
-            expect(@player.send(:is_move_valid?, [0,0])).to eq(false)
-        end
-
-        it "should return false for moves off of board" do
-            expect(@player.send(:is_move_valid?,[4,5])).to eq(false)
-        end
-
-        it "should return true for valid moves" do
-            expect(@player.send(:is_move_valid?,[0,2])).to eq(true)
-        end
-    end
 
      describe "make_move" do
          it "should take in user input and update the move variable accordingly" do

@@ -1,5 +1,4 @@
 class Player
-	attr_accessor :board
 	def initialize(board)
 		@board = board
 		@board_size = board.length
@@ -37,7 +36,7 @@ class Player
 	def is_move_valid?(move)
 		x = move[0]
 		y = move[1]
-		if x >= 0 && x <= @board_size && y >= 0 && y <= @board_size && @board[x][y] == ""
+		if (0..@board_size).include?(x) && (0..@board_size).include?(y) && @board[x][y] == ""
 			true
 		else
 			false

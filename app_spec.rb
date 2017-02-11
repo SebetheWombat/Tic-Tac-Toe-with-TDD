@@ -1,5 +1,4 @@
 require_relative "lib/game_state_checker.rb"
-require_relative "lib/game.rb"
 require_relative "lib/player.rb"
 require_relative "lib/comp_player.rb"
 require_relative "lib/board.rb"
@@ -9,20 +8,20 @@ RSpec.describe "Game loop" do
 	context "Two unbeatable computer players playing against each other" do
 		it "should result in a tie" do
 			game_state = GameStateChecker.new
-			current_game = Game.new
 			board = Board.new(3)
-			game_board = board.board
+			game_board = board.active_board
 			x = "X"
 			o = "O"
 			playerX = CompPlayer.new(game_board,game_state,x,o)
 			playerO = CompPlayer.new(game_board,game_state,o,x)
 
 			while game_state.any_available_moves?(game_board)
-				move = current_game.player_makes_move(playerX)
-				board.update(x, move)
+				moveX = playerX.make_move
+				board.update(x, moveX)
 				break if game_state.outcome(x,o,game_board) != "active"
-				move = current_game.player_makes_move(playerO)
-				board.update(o, move)
+				moveO = playerO.make_move
+				board.update(o, moveO)
+				break if game_state.outcome(x,o,game_board) != "active"
 			end
 
 			expect(game_state.outcome(x,o,game_board)).to eq("Looks like a tie.\n\n")
@@ -34,7 +33,7 @@ RSpec.describe "Game loop" do
 			o = "O"
 			game_state = GameStateChecker.new
 			board = Board.new(3)
-			game_board = board.board
+			game_board = board.active_board
 			playerO = CompPlayer.new(game_board,game_state,o,x)
 
 			board.update(x,[2,1])
@@ -58,7 +57,7 @@ RSpec.describe "Game loop" do
 			o = "O"
 			game_state = GameStateChecker.new
 			board = Board.new(3)
-			game_board = board.board
+			game_board = board.active_board
 			playerO = CompPlayer.new(game_board,game_state,o,x)
 
 			board.update(x,[1,1])
@@ -82,7 +81,7 @@ RSpec.describe "Game loop" do
 			o = "O"
 			game_state = GameStateChecker.new
 			board = Board.new(3)
-			game_board = board.board
+			game_board = board.active_board
 			playerO = CompPlayer.new(game_board,game_state,o,x)
 
 			board.update(x,[0,0])
