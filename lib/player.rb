@@ -7,7 +7,7 @@ class Player
 	def make_move
 		move = [-1,-1]
 		until is_move_valid?(move)
-			move = prompt_for_user(move)
+			move = respond_to_prompt(move)
 			if !is_move_valid?(move)
 				alert_player
 			end
@@ -17,7 +17,7 @@ class Player
 
 	private
 
-	def prompt_for_user(move)
+	def respond_to_prompt(move)
 		input = gets.chomp.gsub(" ", "")
 		input = input.split("")
 		if input.length == 2

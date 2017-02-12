@@ -8,8 +8,7 @@ class GameSetup
 	end
 
 	def board_size_valid?(board_size)
-		valid_sizes = [3,4,5]
-		valid_sizes.include?(board_size)
+		[3,4,5].include?(board_size)
 	end
 
 	def number_players_valid?(player)

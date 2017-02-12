@@ -7,7 +7,6 @@ require_relative "lib/game_setup.rb"
 
 x_marker = "X"
 o_marker = "O"
-game_state = GameStateChecker.new
 display = Display.new
 game_setup = GameSetup.new
 puts display.instructions
@@ -19,6 +18,7 @@ until game_setup.board_size_valid?(board_size)
 	board_size = game_setup.get_number_from_user
 end
 
+game_state = GameStateChecker.new(board_size)
 board = Board.new(board_size)
 active_game_board = board.active_board
 playerX = Player.new(active_game_board)

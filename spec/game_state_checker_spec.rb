@@ -2,7 +2,7 @@ require_relative "../lib/game_state_checker.rb"
 
 RSpec.describe GameStateChecker do
 	before(:each) do
-		@game = GameStateChecker.new
+		@game = GameStateChecker.new(3)
 	end
 	
 	describe "#any_available_moves?" do
@@ -104,11 +104,12 @@ RSpec.describe GameStateChecker do
 			expect(@game.test_winning_moves("X","O",board)).to eq(0)
 		end
 		it "should return correct numbers for winning moves on 4x4 board" do
+			game_four = GameStateChecker.new(4)
 			board = [ ["X","","","O"],
 						["","X","O",""],
 						["","O","",""],
 						["O","","",""]]
-			expect(@game.test_winning_moves("X","O",board)).to eq(10)
+			expect(game_four.test_winning_moves("X","O",board)).to eq(10)
 
 		end
 	end

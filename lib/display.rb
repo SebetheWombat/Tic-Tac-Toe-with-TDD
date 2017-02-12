@@ -13,21 +13,21 @@ class Display
 	def draw_board(board)
 		board_size = board.length
 		col = []
-		board_size.times do |i|
-			row = board_size - i
-			col << i
+		board_size.times do |x|
+			row = board_size - x
+			col << x
 			print row.to_s + " | "
-			board_size.times do |j|
-				if board[i][j] == ""
+			board_size.times do |y|
+				if board[x][y] == ""
 					print "  "
 				else
-					print " " + board[i][j]
+					print " " + board[x][y]
 				end
-				if j < board_size - 1
+				if y < board_size - 1
 					print " |"
 				end 				
 			end
-			if i < board_size - 1
+			if x < board_size - 1
 				puts "\n  | " + "---+" * (board_size - 1) + "---"
 			end
 		end

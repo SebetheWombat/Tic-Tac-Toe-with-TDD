@@ -12,14 +12,14 @@ class CompPlayer < Player
 		board_size = board.length
 		best_move_score = -9999
 		best_move = []
-		board_size.times do |i|
-			board_size.times do |j|
-				if board[i][j] == ""
-					board[i][j] = @players_marker
+		board_size.times do |x|
+			board_size.times do |y|
+				if board[x][y] == ""
+					board[x][y] = @players_marker
 					test_move_score = minimax(false,0,board,-9999,9999)
-					board[i][j] = ""
+					board[x][y] = ""
 					if test_move_score > best_move_score
-						best_move = [i,j]
+						best_move = [x,y]
 						best_move_score = test_move_score
 					end
 				end
@@ -52,10 +52,10 @@ class CompPlayer < Player
 
 	def traverse_board_depth(best_score,depth,board,player_marker,comp_turn,alpha,beta)
 		board_size = board.length
-		board_size.times do |i|
-			board_size.times do |j|
-				if board[i][j] == ""
-					board[i][j] = player_marker
+		board_size.times do |x|
+			board_size.times do |y|
+				if board[x][y] == ""
+					board[x][y] = player_marker
 					if comp_turn
 						best_score = [best_score, minimax(false, depth+1, board,alpha,beta)].max
 						alpha = [alpha,best_score].max
@@ -63,7 +63,7 @@ class CompPlayer < Player
 						best_score = [best_score, minimax(true, depth+1, board,alpha,beta)].min
 						beta = [beta,best_score].min
 					end
-					board[i][j] = ""
+					board[x][y] = ""
 				end
 				if beta <= alpha
 					break

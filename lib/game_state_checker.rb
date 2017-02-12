@@ -1,9 +1,12 @@
 class GameStateChecker
+    def initialize(board_size = 3)
+        @board_size = board_size
+    end
+
     def any_available_moves?(board)
-        board_size = board.length
-        board_size.times do |i|
-            board_size.times do |j|
-                if board[i][j] == ""
+        @board_size.times do |x|
+            @board_size.times do |y|
+                if board[x][y] == ""
                     return  true
                 end
             end
@@ -12,52 +15,43 @@ class GameStateChecker
     end
     
     def test_winning_moves(x_marker,o_marker,board)        
-        diag = check_diag_win(x_marker,o_marker,board)
-        col = check_col_win(x_marker,o_marker,board)
-        row = check_row_win(x_marker,o_marker,board)
+        diagonal_right = check_diagonal_right_win(x_marker,o_marker,board)
+        diagonal_left = check_diagonal_left_win(x_marker,o_marker,board)
+        columns = check_col_win(x_marker,o_marker,board)
+        rows = check_row_win(x_marker,o_marker,board)
 
-        points = [row,col,diag]
-
-        return 10 if points.max == 10
-        return -10 if points.min == -10
-        0
+        points = [rows,columns,diagonal_right,diagonal_left].reduce(:+)
     end
 
     private
 
-    def check_diag_win(x_marker,o_marker,board)
-        board_size = board.length
-        right_diag = (0...board_size).map { |i| board[i][i]}
-        if right_diag.all? {|m| m == o_marker}
+    def check_diagonal_right_win(x_marker,o_marker,board)
+        right_diagonal = (0...@board_size).map { |i| board[i][i]}
+        if right_diagonal.all? {|board_space| board_space == o_marker}
             return 10
-        elsif right_diag.all? {|m| m == x_marker}
+        elsif right_diagonal.all? {|board_space| board_space == x_marker}
             return -10
         end
+        0
+    end
 
-        left_diag = (0...board_size).map { |i| board[i][board_size - i - 1]}
-        if left_diag.all? {|m| m == o_marker}
+    def check_diagonal_left_win(x_marker,o_marker,board)
+        left_diagonal = (0...@board_size).map { |i| board[i][@board_size - i - 1]}
+        if left_diagonal.all? {|board_space| board_space == o_marker}
             return 10
-        elsif left_diag.all? {|m| m ==x_marker}
+        elsif left_diagonal.all? {|board_space| board_space == x_marker}
             return -10
         end
         0
     end
 
     def check_col_win(x_marker,o_marker,board)
-        board_size = board.length
-        board_size.times do |r|
-            column_counter = 1
-            (board_size-1).times do |c|
-                if board[c][r] == board[c+1][r]
-                    column_counter += 1
-                end
-            end
-            if column_counter == board_size
-                if board[0][r] == o_marker
-                    return 10
-                elsif board[0][r] == x_marker
-                    return -10
-                end
+        temp_board = board.transpose
+        temp_board.each do |column|
+            if column.all? {|board_space| board_space == o_marker}
+                return 10
+            elsif column.all? {|board_space| board_space == x_marker}
+                return -10
             end
         end
         0
@@ -65,9 +59,9 @@ class GameStateChecker
 
     def check_row_win(x_marker,o_marker,board)
         board.each do |row|
-            if row.all? {|m| m == o_marker}
+            if row.all? {|board_space| board_space == o_marker}
                 return 10
-            elsif row.all? {|m| m == x_marker}
+            elsif row.all? {|board_space| board_space == x_marker}
                 return -10
             end
         end
