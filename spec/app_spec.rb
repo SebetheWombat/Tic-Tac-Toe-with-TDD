@@ -1,8 +1,8 @@
-require_relative "lib/game_state_checker.rb"
-require_relative "lib/player.rb"
-require_relative "lib/comp_player.rb"
-require_relative "lib/board.rb"
-require_relative "lib/game_setup.rb"
+require_relative "../lib/game_state_checker.rb"
+require_relative "../lib/player.rb"
+require_relative "../lib/comp_player.rb"
+require_relative "../lib/board.rb"
+require_relative "../lib/game_setup.rb"
 
 RSpec.describe "Game loop" do
 	context "Two unbeatable computer players playing against each other" do

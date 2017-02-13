@@ -20,7 +20,7 @@ class GameStateChecker
         columns = check_col_win(x_marker,o_marker,board)
         rows = check_row_win(x_marker,o_marker,board)
 
-        points = [rows,columns,diagonal_right,diagonal_left].reduce(:+)
+        [rows,columns,diagonal_right,diagonal_left].reduce(:+)
     end
 
     private

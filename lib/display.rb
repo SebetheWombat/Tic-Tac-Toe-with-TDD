@@ -34,7 +34,7 @@ class Display
 		puts "\n  |" + "____" * board_size
 		print "    "
 		col.each do |c|
-			print c == board_size-1? " #{(c + 97).chr} ": " #{(c + 97).chr} |"
+			print c == board_size-1? " #{(c + 'a'.ord).chr} ": " #{(c + 'a'.ord).chr} |"
 		end
 		puts "\n\n"
 	end

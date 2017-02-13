@@ -23,7 +23,7 @@ class Player
 		if input.length == 2
 			if input[1].to_i > 0
 				move[0] = @board_size - input[1].to_i
-				move[1] = (input[0].downcase.ord - 97)
+				move[1] = (input[0].downcase.ord - 'a'.ord)
 			end
 		end
 		move
